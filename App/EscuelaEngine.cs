@@ -54,22 +54,29 @@ namespace CoreEscuela
 
     }
 
-    public (List<ObjetoEscuelaBase>, int conteoEvaluaciones) GetObjetosEscuela(
+    public List<ObjetoEscuelaBase> GetObjetosEscuela(
+        out int conteoEvaluaciones,
+        out int conteoAlumnos,
+        out int conteoAsignaturas,
+        out int conteoCursos,
         bool traeEvaluaciones = true,
         bool traeAlumnos = true,
         bool traeAsignaturas = true,
         bool traeCursos = true
+
     )
     {
-      int conteoEvaluaciones = 0;
+      conteoEvaluaciones = conteoAsignaturas = conteoAlumnos = 0;
       var listaObj = new List<ObjetoEscuelaBase>();
       listaObj.Add(Escuela);
       if (traeCursos)
         listaObj.AddRange(Escuela.Cursos);
 
+      conteoCursos = Escuela.Cursos.Count;
       foreach (var curso in Escuela.Cursos)
       {
-
+        conteoAsignaturas += curso.Asignaturas.Count;
+        conteoAlumnos += curso.Alumnos.Count;
         if (traeAsignaturas)
           listaObj.AddRange(curso.Asignaturas);
 
@@ -87,7 +94,7 @@ namespace CoreEscuela
         }
       }
 
-      return (listaObj, conteoEvaluaciones);
+      return listaObj;
     }
 
     private void CargarAsignaturas()
