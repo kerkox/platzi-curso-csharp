@@ -18,15 +18,7 @@ namespace CoreEscuela
       //Printer.Beep(10000, cantidad: 10);
       ImpimirCursosEscuela(engine.Escuela);
       //    int conteoEvaluaciones, conteoAlumnos, conteoAsignaturas, conteoCursos;
-      int dummy = 0;
-      var listaObjetos = engine.GetObjetosEscuela(
-            out int conteoEvaluaciones,
-            out int conteoAlumnos,
-            out int conteoAsignaturas,
-            out int conteoCursos
-      );
-
-
+      engine.GetDiccionarioObjeto();
     }
 
     private static void ImpimirCursosEscuela(Escuela escuela)

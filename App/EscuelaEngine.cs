@@ -54,7 +54,29 @@ namespace CoreEscuela
 
     }
 
-    public List<ObjetoEscuelaBase> GetObjetosEscuela(
+    public Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> GetDiccionarioObjeto()
+    {
+      var diccionario = new Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>>();
+      diccionario.Add(LlaveDiccionario.Escuela, new[] { Escuela });
+      diccionario.Add(LlaveDiccionario.Curso, Escuela.Cursos.Cast<ObjetoEscuelaBase>());
+      var ListAsignatura = new List<Asignatura>();
+      var ListAlumno = new List<Alumno>();
+      var ListEvaluaciones = new List<Evaluación>();
+      Escuela.Cursos.ForEach(curso =>
+      {
+        ListAsignatura.AddRange(curso.Asignaturas);
+        ListAlumno.AddRange(curso.Alumnos);
+        curso.Alumnos.ForEach(alumno => ListEvaluaciones.AddRange(alumno.Evaluaciones));
+      });
+      diccionario.Add(LlaveDiccionario.Asignatura, ListAsignatura);
+      diccionario.Add(LlaveDiccionario.Alumno, ListAlumno);
+      diccionario.Add(LlaveDiccionario.Evalucion, ListEvaluaciones);
+
+      return diccionario;
+    }
+
+
+    public IReadOnlyCollection<ObjetoEscuelaBase> GetObjetosEscuela(
         out int conteoEvaluaciones,
         out int conteoAlumnos,
         out int conteoAsignaturas,
@@ -94,7 +116,7 @@ namespace CoreEscuela
         }
       }
 
-      return listaObj;
+      return listaObj.AsReadOnly();
     }
 
     private void CargarAsignaturas()
