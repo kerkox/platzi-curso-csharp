@@ -4,7 +4,7 @@ using System.Linq;
 using CoreEscuela.Entidades;
 using CoreEscuela.Util;
 
-namespace CoreEscuela
+namespace CoreEscuela.App
 {
   public sealed class EscuelaEngine
   {
@@ -90,7 +90,7 @@ namespace CoreEscuela
       });
       diccionario.Add(LlaveDiccionario.Asignatura, ListAsignatura);
       diccionario.Add(LlaveDiccionario.Alumno, ListAlumno);
-      diccionario.Add(LlaveDiccionario.Evalucion, ListEvaluaciones);
+      diccionario.Add(LlaveDiccionario.Evaluacion, ListEvaluaciones);
 
       return diccionario;
     }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreEscuela.App;
 using CoreEscuela.Entidades;
 using CoreEscuela.Util;
-using platzi_curso_csharp.Entidades;
 using static System.Console;
 
 namespace CoreEscuela
@@ -12,15 +12,19 @@ namespace CoreEscuela
   {
     static void Main(string[] args)
     {
-      AppDomain.CurrentDomain.ProcessExit += AccionDelEvento;
+      // AppDomain.CurrentDomain.ProcessExit += AccionDelEvento;
       var engine = new EscuelaEngine();
       engine.Inicializar();
       Printer.WriteTitle("BIENVENIDOS A LA ESCUELA");
-      //Printer.Beep(10000, cantidad: 10);
-      ImpimirCursosEscuela(engine.Escuela);
-      //    int conteoEvaluaciones, conteoAlumnos, conteoAsignaturas, conteoCursos;
-      var dictmp = engine.GetDiccionarioObjeto();
-      engine.ImprimirDiccionario(dictmp, true);
+
+      var reporteador = new Reporteador(engine.GetDiccionarioObjeto());
+      reporteador.GetListaEvaluaciones();
+      var listaPromedioXAsig = reporteador.GetPromAlumnoPorAsignatura();
+      // //Printer.Beep(10000, cantidad: 10);
+      // ImpimirCursosEscuela(engine.Escuela);
+      // //    int conteoEvaluaciones, conteoAlumnos, conteoAsignaturas, conteoCursos;
+      // var dictmp = engine.GetDiccionarioObjeto();
+      // engine.ImprimirDiccionario(dictmp, true);
     }
 
     private static void AccionDelEvento(object sender, EventArgs e)

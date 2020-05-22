@@ -4,7 +4,7 @@ public enum LlaveDiccionario
   Alumno,
   Asignatura,
   Escuela,
-  Evalucion
+  Evaluacion
 }
 
 // public struct LlavesDiccionario
